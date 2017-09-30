@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright © 2017 Antony S. Ovsyannikov aka lnl122
+// License: http://opensource.org/licenses/MIT
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,17 +9,40 @@ using System.Windows.Forms;
 
 namespace ENS
 {
-    static class Program
+    public static class Program
     {
+        // лог
+        private static Log Log = new Log("Program");
+
         /// <summary>
         /// Главная точка входа для приложения.
         /// </summary>
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Log.Write("Запустили ENS");
+
+            Console.WriteLine(Test1.FuncAdd(2, 3));
+
+            Log.Write("Закончили работу ENS");
+            Log.Close();
+        }
+    }
+
+    /// <summary>
+    /// тестовый класс
+    /// </summary>
+    public static class Test1
+    {
+        /// <summary>
+        /// тестовая функция для отладки NUnit
+        /// </summary>
+        /// <param name="a">1 слагаемое</param>
+        /// <param name="b">2 слагаемое</param>
+        /// <returns>сумма двух чисел</returns>
+        public static int FuncAdd(int a, int b)
+        {
+            return a + b;
         }
     }
 }
