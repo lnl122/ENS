@@ -12,7 +12,8 @@ namespace ENS
     public static class Program
     {
         // лог
-        private static Log Log = new Log("Program");
+        //private static 
+        //public static Settings Options;
 
         /// <summary>
         /// Главная точка входа для приложения.
@@ -21,9 +22,11 @@ namespace ENS
         static void Main()
         {
             // инициализируемся
+            Log Log = new Log("Program");
             Log.Write("Запустили ENS");
 
-            // спрашиваем пользователя о режимах работы (GUI форма со многими полями выбора)
+            Settings Options = new Settings();
+            Options.Get("DatabaseFilename");
 
             // запускаем необходимые компоненты (вбиватор, сервер, клиент, решалка, )
             Console.WriteLine(Test1.FuncAdd(2, 3));

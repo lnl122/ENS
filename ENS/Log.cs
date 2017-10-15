@@ -50,9 +50,10 @@ namespace ENS
                 {
                     if (!isReady)
                     {
-                        FilePath fp = new FilePath();
-                        PathToPages = fp.GetPages();
-                        logfile = new System.IO.StreamWriter(System.IO.File.AppendText(fp.GetLog()).BaseStream);
+                        string LogPath = FilePath.CheckCreateFolder("Log") + System.Diagnostics.Process.GetCurrentProcess().MainModule.ModuleName + ".log";
+                        PathToPages = FilePath.CheckCreateFolder("Pages");
+
+                        logfile = new System.IO.StreamWriter(System.IO.File.AppendText(LogPath).BaseStream);
                         logfile.AutoFlush = true;
                         isReady = true;
                     }

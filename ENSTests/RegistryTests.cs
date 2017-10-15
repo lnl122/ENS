@@ -7,9 +7,17 @@ using ENS;
 
 namespace ENSTests
 {
-    [TestClass]
+    //[TestClass]
     public class RegistryTests
     {
+        [TestMethod]
+        public void Reg_ReadNonExistsValue()
+        {
+            using (Registry reg = new Registry())
+            {
+                Assert.AreEqual("", reg.GetValue("sfghsfghstfhwvrthdfh555"));
+            }
+        }
         [TestMethod]
         public void Reg_WriteReadStringValue()
         {

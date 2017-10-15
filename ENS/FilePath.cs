@@ -5,82 +5,15 @@ using System;
 
 namespace ENS
 {
-    /// <summary>
-    /// предоставляем по запросу пути к внешним файловым ресурсам
-    /// </summary>
-    interface IFilePath
+    class FilePath
     {
-        string GetLog();
-        string GetPages();
-        //string GetPics();
-        //string GetDictionary();
-        //string GetAssoc();
-        //string GetBooks();
-    }
-
-    class FilePath : IFilePath
-    {
-        // константы
-        private const string LogFolderName = "Log";
-        //private const string DataFolderName = "Data";
-        private const string PagesFolderName = "Pages";
-        //private const string PicsFolderName = "Pics";
-        //private const string SpellChekDictFile = "SpChDict.dat";
-        //private const string AssocDictFile = "AssocDict.dat";
-        //private const string BooksDictFile = "Books.dat";
-
-        // готовность
-        private static bool isReady = false;
-        // объекты для блокировки
-        private static object LockInit = new object();
-
-        // готовые пути и имена
-        private static string Log;
-        private static string Pages;
-        //private static string Pics;
-        //private static string SpellChekDict;
-        //private static string AssocDict;
-        //private static string BooksDict;
-
-        /// <summary>
-        /// контсруктор
-        /// </summary>
-        public FilePath()
-        {
-            Init();
-        }
-
-        /// <summary>
-        /// инициализация путей и имен файлов
-        /// </summary>
-        private static void Init()
-        {
-            if (!isReady)
-            {
-                lock (LockInit)
-                {
-                    if (!isReady)
-                    {
-                        Log = CheckCreateFolder(LogFolderName) + System.Diagnostics.Process.GetCurrentProcess().MainModule.ModuleName + ".log";
-                        Pages = CheckCreateFolder(PagesFolderName);
-                        //Pics = CheckCreateFolder(PicsFolderName);
-                        //string DataFolder = CheckCreateFolder(DataFolderName);
-                        //SpellChekDict = DataFolder + SpellChekDictFile;
-                        //AssocDict = DataFolder + AssocDictFile;
-                        //BooksDict = DataFolder + BooksDictFile;
-                        isReady = true;
-                    }
-                }
-            }
-        }
-
         /// <summary>
         /// если папка есть, или если не было, но удалось создать - возвращает путь к ней, иначе - базовый путь
         /// </summary>
         /// <param name="basepath">базовый путь</param>
         /// <param name="folder">имя папки</param>
         /// <returns>путь к папке</returns>
-        private static string CheckCreateFolder(string folder)
+        public static string CheckCreateFolder(string folder)
         {
             string basepath = Environment.CurrentDirectory;
             string path = basepath + @"\" + folder.Replace("\\", "");
@@ -98,42 +31,26 @@ namespace ENS
             return path + "\\";
         }
 
-        // здесь и ниже - передаем установленные значения путей/файлов
-        public string GetLog()
-        {
-            if (!isReady)
-            {
-                Init();
-            }
-            return Log;
-        }
-        public string GetPages()
-        {
-            if (!isReady)
-            {
-                Init();
-            }
-            return Pages;
-        }
-        //public string GetPics()
+        //// здесь и ниже - передаем установленные значения путей/файлов
+        //public static string GetLogFilePath()
         //{
-        //    //if (!isReady) { Init(); }
-        //    return Pics;
+        //    Settings Options = new Settings();
+        //    return CheckCreateFolder(Options.Get("LogFolder")) + System.Diagnostics.Process.GetCurrentProcess().MainModule.ModuleName + ".log"; ;
         //}
-        //public string GetDictionary()
+        //public static string GetPagesFolder()
         //{
-        //    //if (!isReady) { Init(); }
-        //    return SpellChekDict;
+        //    Settings Options = new Settings();
+        //    return CheckCreateFolder(Options.Get("PagesFolder"));
         //}
-        //public string GetBooks()
+        //public static string GetPicsFolder()
         //{
-        //    //if (!isReady) { Init(); }
-        //    return BooksDict;
+        //    Settings Options = new Settings();
+        //    return CheckCreateFolder(Options.Get("PicsFolder"));
         //}
-        //public string GetAssoc()
+        //public static string GetDataFolder()
         //{
-        //    //if (!isReady) { Init(); }
-        //    return AssocDict;
+        //    Settings Options = new Settings();
+        //    return CheckCreateFolder(Options.Get("DataFolder"));
         //}
 
     }
