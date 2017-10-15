@@ -12,8 +12,7 @@ namespace ENS
     public static class Program
     {
         // лог
-        //private static 
-        //public static Settings Options;
+        private static Log Log = new Log("Program");
 
         /// <summary>
         /// Главная точка входа для приложения.
@@ -22,7 +21,6 @@ namespace ENS
         static void Main()
         {
             // инициализируемся
-            Log Log = new Log("Program");
             Log.Write("Запустили ENS");
 
             Settings Options = new Settings();
