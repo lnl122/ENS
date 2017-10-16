@@ -23,8 +23,10 @@ namespace ENS
             // инициализируемся
             Log.Write("Запустили ENS");
 
-            Settings Options = new Settings();
-            Options.Get("DatabaseFilename");
+            using(SQLiteEngine sql = new SQLiteEngine()){
+                int i = 0;
+            }
+            
 
             // запускаем необходимые компоненты (вбиватор, сервер, клиент, решалка, )
             Console.WriteLine(Test1.FuncAdd(2, 3));
