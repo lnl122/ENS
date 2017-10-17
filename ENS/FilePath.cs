@@ -5,7 +5,7 @@ using System;
 
 namespace ENS
 {
-    class FilePath
+    public class FilePath
     {
         /// <summary>
         /// если папка есть, или если не было, но удалось создать - возвращает путь к ней, иначе - базовый путь

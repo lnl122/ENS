@@ -21,11 +21,10 @@ namespace ENS
 
     public class SQLiteEngine : ISQLiteEngine, IDisposable
     {
-        // объекты блокировки
-        private static object LockWrite = new object();
         // прризнак проведенной инициализации
         public static bool isReady = false;
-        // объекты для блокировки
+        // объекты блокировки
+        private static object LockWrite = new object();
         private static object LockInit = new object();
         // лог
         private static Log Log = new Log("SQLiteEngine");
@@ -60,39 +59,68 @@ namespace ENS
                         {
                             isReady = false;
                         }
-
-                        //public static string dict_str = "";
-                        //public static SQLiteConnection sql_con;
-                        //public static SQLiteCommand sql_cmd;
-                        //public static SQLiteDataAdapter DB;
-                        //public static DataSet DS = new DataSet();
-                        //public static DataTable DT = new DataTable();
                     }
                 }
             }
         }
 
+        /// <summary>
+        /// выполняет запрос в БД, не возвращающий таблицы значений (create table/insert/update/delete)
+        /// </summary>
+        /// <param name="text">текст запроса</param>
         public void Query(string text)
         {
             if (isReady)
             {
                 lock (LockWrite)
                 {
-                    int i = 1;
+                    try
+                    {
+                        SQLiteCommand command = new SQLiteCommand(text, connection);
+                        //SQLiteCommand command = connection.CreateCommand();
+                        //command.CommandText = text;
+                        command.ExecuteNonQuery();
+                    }
+                    catch
+                    {
+                        Log.Write("ошибка при выполнении запроса к БД (create table/insert/update/delete)");
+                    }
                 }
             }
         }
 
+        /// <summary>
+        /// выполняет запрос в БД, возвращающий таблицу значений (select)
+        /// </summary>
+        /// <param name="text">текст запроса</param>
+        /// <returns>список строк, содержащий список колонок со значениями в string</returns>
         public List<List<string>> Select(string text)
         {
+            List<List<string>>  res = new List<List<string>>();
             if (isReady)
             {
-                lock (LockWrite)
+                try
                 {
-                    int i = 1;
+                    SQLiteCommand command = new SQLiteCommand(text, connection);
+                    SQLiteDataReader reader = command.ExecuteReader();
+
+                    int columns = reader.FieldCount;
+                    while (reader.Read())
+                    {
+                        List<string> one_row = new List<string>();
+                        for (int i = 0; i < columns - 1; i++)
+                        {
+                            one_row.Add(reader.GetString(i));
+                        }
+                        res.Add(one_row);
+                    }
+                }
+                catch
+                {
+                    Log.Write("ошибка при выполнении запроса к БД, возвращающего таблицу (select)");
                 }
             }
-            return new List<List<string>>();
+            return res;
         }
 
         /// <summary>
@@ -105,3 +133,7 @@ namespace ENS
         }
     }
 }
+
+//const string query = "Select * From Invoice Where InvNumber = @InvNumber";
+//using (SqlCommand cmd = new SqlCommand(query, conn))
+//cmd.Parameters.Add(new SqlParameter("@InvNumber", 1100));
