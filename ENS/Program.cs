@@ -23,42 +23,7 @@ namespace ENS
             // инициализируемся
             Log.Write("Запустили ENS");
 
-            using (Settings Options = new Settings())
-            {
-                string old_db_name = Options.Get("DatabaseFilename");
-                Options.Set("DatabaseFilename", "test3.db");
-                string DBPath = FilePath.CheckCreateFolder(Options.Get("DataFolder")) + Options.Get("DatabaseFilename");
-                List<List<string>> res1 = new List<List<string>>();
-                try
-                {
-                    using (SQLiteEngine sql = new SQLiteEngine(true))
-                    {
-                        // в БД нужно создать таблицу и записи в ней
-                        sql.Query("CREATE TABLE Words ( wrd VARCHAR(50), len INTEGER)");
-                        sql.Query("insert into Words (wrd, len) values ('Дятел', 5)");
-                        sql.Query("insert into Words (wrd, len) values ('Воробей', 7)");
-                        sql.Query("insert into Words (wrd, len) values ('Рыба', 4)");
-                        sql.Query("insert into Words (wrd, len) values ('Мамонт', 6)");
-                        sql.Query("insert into Words (wrd, len) values ('Корова', 6)");
-                        sql.Query("insert into Words (wrd, len) values ('Пес', 3)");
-                        sql.Query("insert into Words (wrd, len) values ('Кот', 3)");
 
-                        res1 = sql.Select("SELECT wrd FROM Words WHERE len = 3");
-                    }
-                }
-                catch
-                {
-                    Options.Set("DatabaseFilename", old_db_name);
-                }
-                Options.Set("DatabaseFilename", old_db_name); // "data.db"
-
-                List<string> res1_1 = res1[0];
-                List<string> res1_2 = new List<string>();
-                res1_2.Add(res1[0][0].ToLower());
-                res1_2.Add(res1[1][0].ToLower());
-                int tt = 0;
-
-            }
 
             // запускаем необходимые компоненты (вбиватор, сервер, клиент, решалка, )
             Console.WriteLine(Test1.FuncAdd(2, 3));

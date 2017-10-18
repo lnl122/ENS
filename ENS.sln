@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ENS", "ENS\ENS.csproj", "{3902AC2D-5A21-4361-B9F6-9F41F63BFF28}"
 EndProject
@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ENSTests", "ENSTests\ENSTes
 	ProjectSection(ProjectDependencies) = postProject
 		{3902AC2D-5A21-4361-B9F6-9F41F63BFF28} = {3902AC2D-5A21-4361-B9F6-9F41F63BFF28}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ENS_CreateDatabase", "ENS_CreateDatabase\ENS_CreateDatabase.csproj", "{E904071B-0A87-4C46-A3D7-51724FE25F12}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +26,10 @@ Global
 		{D4290D07-0C4A-4A7B-BB76-EED38FB09801}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4290D07-0C4A-4A7B-BB76-EED38FB09801}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4290D07-0C4A-4A7B-BB76-EED38FB09801}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E904071B-0A87-4C46-A3D7-51724FE25F12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E904071B-0A87-4C46-A3D7-51724FE25F12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E904071B-0A87-4C46-A3D7-51724FE25F12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E904071B-0A87-4C46-A3D7-51724FE25F12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -21,7 +21,7 @@ namespace ENSTests
             }
         }
         [TestMethod]
-        public void SQLiteEngine_Select()
+        public void SQLiteEngine_SelectTable()
         {
             using (Settings Options = new Settings())
             {
@@ -49,7 +49,7 @@ namespace ENSTests
                         sql.Query("insert into Words (wrd, len) values ('Пес', 3)");
                         sql.Query("insert into Words (wrd, len) values ('Кот', 3)");
 
-                        res1 = sql.Select("SELECT wrd FROM Words WHERE len = 3");
+                        res1 = sql.SelectTable("SELECT wrd FROM Words WHERE len = 3");
                     }
                 }
                 catch
@@ -73,6 +73,56 @@ namespace ENSTests
                 Assert.AreEqual(true, res1_2.Contains("кот"));
                 Assert.AreEqual(true, res1_2.Contains("пес"));
                 Assert.AreEqual(false, res1_2.Contains("крокодилище"));
+            }
+        }
+        [TestMethod]
+        public void SQLiteEngine_SelectColumn()
+        {
+            using (Settings Options = new Settings())
+            {
+                string old_db_name = Options.Get("DatabaseFilename");
+                Options.Set("DatabaseFilename", "test5.db");
+                string DBPath = FilePath.CheckCreateFolder(Options.Get("DataFolder")) + Options.Get("DatabaseFilename");
+                if (File.Exists(DBPath))
+                {
+                    File.Delete(DBPath);
+                }
+                Assert.AreEqual(false, File.Exists(DBPath));
+                List<string> res1 = new List<string>();
+                try
+                {
+                    using (SQLiteEngine sql = new SQLiteEngine(true))
+                    {
+                        Assert.AreEqual(true, File.Exists(DBPath));
+                        // в БД нужно создать таблицу и записи в ней
+                        sql.Query("CREATE TABLE Words ( wrd VARCHAR(50), len INTEGER)");
+                        sql.Query("insert into Words (wrd, len) values ('Дятел', 5)");
+                        sql.Query("insert into Words (wrd, len) values ('Воробей', 7)");
+                        sql.Query("insert into Words (wrd, len) values ('Рыба', 4)");
+                        sql.Query("insert into Words (wrd, len) values ('Мамонт', 6)");
+                        sql.Query("insert into Words (wrd, len) values ('Корова', 6)");
+                        sql.Query("insert into Words (wrd, len) values ('Пес', 3)");
+                        sql.Query("insert into Words (wrd, len) values ('Кот', 3)");
+
+                        res1 = sql.SelectColumn("SELECT wrd FROM Words WHERE len = 3");
+                    }
+                }
+                catch
+                {
+                    Options.Set("DatabaseFilename", old_db_name);
+                    Assert.AreEqual("", "Исключение при попытке создать объект SQLiteEngine(true) или в создании таблицы/записей или при селекте");
+                }
+                Options.Set("DatabaseFilename", old_db_name); // "data.db"
+
+                //if (File.Exists(DBPath))
+                //{
+                //    File.Delete(DBPath);
+                //}
+
+                Assert.AreEqual(2, res1.Count);
+                Assert.AreEqual(true, res1.Contains("Кот"));
+                Assert.AreEqual(true, res1.Contains("Пес"));
+                Assert.AreEqual(false, res1.Contains("крокодилище"));
             }
         }
         [TestMethod]
