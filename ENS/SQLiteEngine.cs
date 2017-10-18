@@ -17,6 +17,7 @@ namespace ENS
     {
         void Query(string text);
         List<List<string>> Select(string text);
+        bool Check();
     }
 
     public class SQLiteEngine : ISQLiteEngine, IDisposable
@@ -108,7 +109,7 @@ namespace ENS
                     while (reader.Read())
                     {
                         List<string> one_row = new List<string>();
-                        for (int i = 0; i < columns - 1; i++)
+                        for (int i = 0; i < columns; i++)
                         {
                             one_row.Add(reader.GetString(i));
                         }
@@ -130,6 +131,25 @@ namespace ENS
         {
             connection.Close();
             isReady = false;
+        }
+
+        /// <summary>
+        /// Проверяет наличие всех необходимых для работы таблиц в БД
+        /// </summary>
+        /// <returns>флаг корректности проверки</returns>
+        public bool Check()
+        {
+            bool res = true;
+            try
+            {
+                List<List<string>> ListOfTables = Select("");
+
+            }
+            catch
+            {
+                Log.Write("ошибка при выполнении наличия необходимых таблиц БД");
+            }
+            return true;
         }
     }
 }

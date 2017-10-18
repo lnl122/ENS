@@ -7,7 +7,7 @@ using ENS;
 
 namespace ENSTests
 {
-    [TestClass]
+    //[TestClass]
     public class SettingsTests
     {
         [TestMethod]
