@@ -14,9 +14,9 @@ namespace ENS_CreateDatabase
         static void Main(string[] args)
         {
             sql = new SQLiteEngine(true);
+            string folder = @"C:\Users\aovsyannikov\source\repos\ENS\_database_source\";
 
-
-            LoadWordsDictionary(@"C:\TEMP\dict.txt");
+            LoadWordsDictionary(folder + "dict.txt");
             //"Words", "Words_49_char"
 
 
