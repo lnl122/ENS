@@ -34,16 +34,16 @@ namespace ENS
         private static SQLiteConnection connection;
 
         // перечень таблиц, которые обязательно должны быть в базе
-        List<string> TablesMustBeList = new List<string>()
+        public static List<string> TablesMustBeList = new List<string>()
             {
                 // общий словарь слов
                 "Words",
                 // словари по длине слова, для оптимизации запросов
-                "Words_1_char", "Words_2_char", "Words_3_char", "Words_4_char", "Words_5_char", "Words_6_char", "Words_7_char", "Words_8_char", "Words_9_char",
-                "Words_10_char", "Words_11_char", "Words_12_char", "Words_13_char", "Words_14_char", "Words_15_char", "Words_16_char", "Words_17_char", "Words_18_char", "Words_19_char",
-                "Words_20_char", "Words_21_char", "Words_22_char", "Words_23_char", "Words_24_char", "Words_25_char", "Words_26_char", "Words_27_char", "Words_28_char", "Words_29_char",
-                "Words_30_char", "Words_31_char", "Words_32_char", "Words_33_char", "Words_34_char", "Words_35_char", "Words_36_char", "Words_37_char", "Words_38_char", "Words_39_char",
-                "Words_40_char", "Words_41_char", "Words_42_char", "Words_43_char", "Words_44_char", "Words_45_char", "Words_46_char", "Words_47_char", "Words_48_char", "Words_49_char"
+                "Words_1_chars", "Words_2_chars", "Words_3_chars", "Words_4_chars", "Words_5_chars", "Words_6_chars", "Words_7_chars", "Words_8_chars", "Words_9_chars",
+                "Words_10_chars", "Words_11_chars", "Words_12_chars", "Words_13_chars", "Words_14_chars", "Words_15_chars", "Words_16_chars", "Words_17_chars", "Words_18_chars", "Words_19_chars",
+                "Words_20_chars", "Words_21_chars", "Words_22_chars", "Words_23_chars", "Words_24_chars", "Words_25_chars", "Words_26_chars", "Words_27_chars", "Words_28_chars", "Words_29_chars",
+                "Words_30_chars", "Words_31_chars", "Words_32_chars", "Words_33_chars", "Words_34_chars", "Words_35_chars", "Words_36_chars", "Words_37_chars", "Words_38_chars", "Words_39_chars",
+                "Words_40_chars", "Words_41_chars", "Words_42_chars", "Words_43_chars", "Words_44_chars", "Words_45_chars", "Words_46_chars", "Words_47_chars", "Words_48_chars", "Words_49_char"
             };
 
         /// <summary>
